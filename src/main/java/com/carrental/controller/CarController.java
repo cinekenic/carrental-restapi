@@ -1,7 +1,7 @@
 package com.carrental.controller;
 
-import com.carrental.model.CarEntity;
-import com.carrental.model.CarStatus;
+import com.carrental.dto.CarDTO;
+import com.carrental.mapper.CarMapper;
 import com.carrental.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,17 +15,19 @@ public class CarController {
     private final CarService carService;
 
     @GetMapping
-    public List<CarEntity> getAllCars() {
-        return carService.getAllCars();
+    public List<CarDTO> getAllCars() {
+        return carService.getAllCars().stream()
+                .map(CarMapper::toDto)
+                .toList();
     }
 
     @PostMapping
-    public CarEntity addCar(@RequestBody CarEntity car) {
-        return carService.addCar(car);
+    public CarDTO addCar(@RequestBody CarDTO carDto) {
+        return CarMapper.toDto(carService.addCar(CarMapper.toEntity(carDto)));
     }
 
     @PutMapping("/{id}/status")
-    public CarEntity changeStatus(@PathVariable Long id, @RequestParam CarStatus status) {
-        return carService.changeStatus(id, status);
+    public CarDTO changeStatus(@PathVariable Long id, @RequestParam String status) {
+        return CarMapper.toDto(carService.changeStatus(id, status));
     }
 }

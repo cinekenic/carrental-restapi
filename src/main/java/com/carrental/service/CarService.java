@@ -23,10 +23,11 @@ public class CarService {
         return carRepository.save(car);
     }
 
-    public CarEntity changeStatus(Long id, CarStatus status) {
+    public CarEntity changeStatus(Long id, String status) {
         CarEntity car = carRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Car not found with id " + id));
-        car.setStatus(status);
+
+        car.setStatus(CarStatus.valueOf(status));
         return carRepository.save(car);
     }
 }
