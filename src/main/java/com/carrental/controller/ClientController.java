@@ -1,5 +1,6 @@
 package com.carrental.controller;
 
+import com.carrental.dto.ClientDTO;
 import com.carrental.model.ClientEntity;
 import com.carrental.service.ClientService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import java.util.List;
 @RequestMapping("/clients")
 @RequiredArgsConstructor
 public class ClientController {
+
     private final ClientService clientService;
 
     @GetMapping
@@ -19,7 +21,7 @@ public class ClientController {
     }
 
     @PostMapping
-    public ClientEntity addClient(@RequestBody ClientEntity client) {
-        return clientService.addClient(client);
+    public ClientEntity addClient(@RequestBody ClientDTO clientDTO) {
+        return clientService.addClient(clientDTO);
     }
 }
