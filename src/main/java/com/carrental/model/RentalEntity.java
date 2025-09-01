@@ -19,9 +19,11 @@ public class RentalEntity {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "car_id", nullable = false)
     private CarEntity car;
 
     @ManyToOne
+    @JoinColumn(name = "client_id", nullable = false)
     private ClientEntity client;
 
     private LocalDateTime rentalDate;
